@@ -7,7 +7,7 @@
  */
 
 @include_once('link.php');
-$source = array('s-dilandau', 's-zing', 's-hulkshare');
+$source = array('s-dilandau', 's-zing', 's-hulkshare', 's-mp3skull');
 $keyword = '';
 $hasil = '';
 $found = false;
@@ -26,15 +26,18 @@ if(!empty($keyword)) {
         $i = 0;
         $found = false;
         $total = count($data);
-        for($i=0;$i<$total;$i++) {
-            $x = 0;
-            foreach($data[$i]['title'] as $title) {
-            $found = true;
+		if($total > 0){
+			for($i=0;$i<$total;$i++) {
+				$x = 0;
+				foreach($data[$i]['title'] as $title) {
+					$found = true;
 
-	    $str = rawurlencode(encrypt($data[$i]['url'][$x], '1234567890987654321', '!@#$%$#@!QWERTREWQ'));
-            $hasil .= '<div><strong>'.$title.'</strong> - <a href="link.php?o='.$str.'">download</a></div>';
-            $x++;
-        }}
+					$str = rawurlencode(encrypt($data[$i]['url'][$x], '1234567890987654321', '!@#$%$#@!QWERTREWQ'));
+					$hasil .= '<div><strong>'.$title.'</strong> - <a href="link.php?o='.$str.'">download</a></div>';
+					$x++;
+				}
+			}
+		}
 
         if($found != true) {
             $hasil = "not found";
